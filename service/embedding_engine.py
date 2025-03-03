@@ -69,13 +69,13 @@ class XinferenceEmbedding:
         }
 
         # 如果模型在预设列表中，返回对应维度
-        model_name = config.XEMBEDDING_MODEL_NAME
+        model_name = config.EMBEDDING_MODEL_NAME
         if model_name in model_dimensions:
             return model_dimensions[model_name]
 
         # 如果不在预设列表中，通过嵌入测试文本来获取维度
         test_embedding = self.get_text_embedding("测试文本")
-        log.info("获取嵌入维度失败，通过测试文本获取维度")
+        log.debug("获取嵌入维度失败，通过测试文本获取维度")
         return len(test_embedding)
 
     def get_text_embedding(self, text: str) -> Optional[list]:

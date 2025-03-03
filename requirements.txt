@@ -4,3 +4,4 @@ llama-index-vector-stores-qdrant~=0.4.3
 qdrant-client~=1.13.2
 langchain-community~=0.3.18
 uvicorn~=0.32.1
+pydantic~=2.10.3
