@@ -1,0 +1,6 @@
+fastapi~=0.112.2
+llama-index-core~=0.12.22
+llama-index-vector-stores-qdrant~=0.4.3
+qdrant-client~=1.13.2
+langchain-community~=0.3.18
+uvicorn~=0.32.1
