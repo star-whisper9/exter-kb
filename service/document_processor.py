@@ -61,9 +61,7 @@ class DocumentProcessor:
 
         # 基础文件元数据
         base_metadata = {
-            "file_name": os.path.basename(file_path),
             "file_type": file_ext[1:],
-            "file_path": file_path,
             "doc_id": str(uuid.uuid4())
         }
 

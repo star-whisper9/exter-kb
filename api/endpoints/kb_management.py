@@ -24,7 +24,7 @@ def health():
 async def add_documents(
         background_tasks: BackgroundTasks,
         files: List[UploadFile] = File(...),
-        kb_id: str = Form(...),
+        kb_name: str = Form(...),
         metadata: Optional[str] = Form(None),
         custom_delimiter: Optional[str] = Form(None),
         chunk_size: Optional[int] = Form(1000),
@@ -36,7 +36,7 @@ async def add_documents(
 
     Args:
         files: 上传的文件列表
-        kb_id: 知识库ID
+        kb_name: 知识库ID
         metadata: (可选) 元数据(应用于所有文件)
         custom_delimiter: (可选) 自定义文本分段符
         chunk_size: (可选) 分块大小
@@ -63,10 +63,10 @@ async def add_documents(
                 raise HTTPException(status_code=400, detail="无法解析元数据JSON")
 
         # 获取或创建知识库
-        kb = kb_manager.get_knowledge_base(kb_id)
+        kb = kb_manager.get_knowledge_base(kb_name)
         if not kb:
-            kb = kb_manager.create_knowledge_base(kb_id)
-            log.info(f"创建新知识库: {kb_id}")
+            kb = kb_manager.create_knowledge_base(kb_name)
+            log.info(f"创建新知识库: {kb_name}")
 
         # 保存上传的文件并处理
         document_ids = []
@@ -85,7 +85,7 @@ async def add_documents(
                 # 添加文件名到元数据
                 file_metadata = {
                     **metadata_dict,
-                    "original_filename": file.filename
+                    "uploaded_filename": file.filename
                 }
 
                 # 处理文档
@@ -113,7 +113,7 @@ async def add_documents(
             raise HTTPException(status_code=500, detail="所有文件处理失败")
 
         return DocumentResponse(
-            status="success" if document_ids else "partial_success",
+            status="成功" if document_ids else "部分成功",
             document_ids=document_ids,
             failed_files=failed_files
         )
